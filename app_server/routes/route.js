@@ -712,7 +712,7 @@ getSendImage = function(req,res){
                 }
             }
             else{
-                res.redirect('register');
+                res.render('register', { status: 'statusAlert', type: 'warning', message:'Yeterince user kayıtlı değil' });
             }
         });
 
