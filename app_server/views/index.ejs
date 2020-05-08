@@ -1,0 +1,429 @@
+<div class="container page-container" >
+
+  <% if ( typeof status != "undefined" ) { %>
+    <div class="alert alert-<%= type%> <%= status%>" role="alert">
+      <span class="" ><%= message%></span>
+    </div>            
+  <% } %>
+
+  <div class="main-row">
+    <h1>Encryption Test</h1>
+
+    <form action="/" method="POST">
+      <input type="hidden" name="processType" value="encryption">
+      <div class="row list-row">
+        <div class="col col-12">
+          <div class="card card-cpryt3">
+            <div class="card-header">
+              <h4>Plain Text</h4>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                
+                <div class="form-group">
+                  <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                <textarea class="form-control-textarea" name="test_plain_text" placeholder="Plain text giriniz." id="exampleFormControlTextarea1" rows="4"><% if( typeof enc_plain_text != 'undefined'){ %><%= enc_plain_text %><% } %></textarea>
+                </div>
+                
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="row list-row">
+        <div class="col col-12">
+          <div class="card card-cpryt3">
+            <div class="card-header">
+              <h4>Key</h4>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                
+                <div class="form-group">
+                  <textarea class="form-control-textarea" name="test_key" placeholder="Keyi giriniz." id="exampleFormControlTextarea1" rows="2"><% if( typeof enc_key != 'undefined'){ %><%= enc_key %><% } %></textarea>
+                </div>
+                
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <button type="submit" class="my-btn btn-success">Encrypt</button>
+
+
+      
+      <% if ( typeof enc_cipher_text != "undefined" ) { %>
+      <div id="result_cipher" class="row">
+        <div class="col col-12">
+          <div class="card card-cpryt3">
+            <div class="card-header">
+              <h4>Cipher Text</h4>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+
+                <p><%= enc_cipher_text%></p>
+
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+      
+    </form>
+  </div>
+
+  <div class="main-row">
+    <h1>Decryption Test</h1>
+  
+    <form action="/" method="POST">
+      <input type="hidden" name="processType" value="decryption">
+      <div class="row list-row">
+        <div class="col col-12">
+          <div class="card card-cpryt3">
+            <div class="card-header">
+              <h4>Cipher Text</h4>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                
+                <div class="form-group">
+                  <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                  <textarea class="form-control-textarea" name="test_cipher_text" placeholder="Cipher text giriniz." id="exampleFormControlTextarea1" rows="4"><% if( typeof dec_cipher_text != 'undefined'){ %><%= dec_cipher_text %><% } %></textarea>
+                </div>
+                
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+      <div class="row list-row">
+        <div class="col col-12">
+          <div class="card card-cpryt3">
+            <div class="card-header">
+              <h4>Key</h4>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                
+                <div class="form-group">
+                  <textarea class="form-control-textarea" name="test_key" placeholder="Keyi giriniz." id="exampleFormControlTextarea1" rows="2"><% if( typeof dec_key != 'undefined'){ %><%= dec_key %><% } %></textarea>
+                </div>
+                
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <button type="submit" class="my-btn btn-success">Decrypt</button>
+
+
+      
+      
+      <% if ( typeof dec_plain_text != "undefined" ) { %>
+      <div id="result_plain" class="row">
+        <div class="col col-12">
+          <div class="card card-cpryt3">
+            <div class="card-header">
+              <h4>Plain Text</h4>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+
+                <p><%= dec_plain_text%></p>
+
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+      
+    </form>
+  </div>
+
+  <div class="main-row">
+    <h1>Examples</h1>
+
+    <div class="row list-row">
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Plain Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>erhanersoz</p>
+              <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Key</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>cokgizlikey</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Cipher Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>U2FsdGVkX1+WKOQ9AG8QZyOVIfBV0CcyatZ9M1FggYE=</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row list-row">
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Plain Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>aaaaaaaaaa</p>
+              <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Key</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">              
+              <p>cokgizlikey</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Cipher Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>U2FsdGVkX1+KvzoC39dxLwaZLqzhpRtAt7wFtl5rRhA=</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row list-row">
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Plain Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>aaaabaaaaa</p>
+              <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Key</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              
+              <p>cokgizlikey</p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-1x">
+          <div class="card-header">
+            <h4>Cipher Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>U2FsdGVkX1/mvU6Fdt+UDMy0M4pMm/ds8xKQoThflyE=</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row list-row">
+      <div class="col col-4">
+        <div class="card card-height-2x">
+          <div class="card-header">
+            <h4>Plain Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>Ne yazik ki, kimseye Matrix’in ne olduğu anlatılamaz. Kendin görmelisin. Bu, son firsatın. Buradan sonra dönüş yok. Mavi hapı alırsan hikaye biter. Yatağında uyanır ve istediğin şeye inanırsın. Kırmızı hapı alırsan Mucize Ülkesi’nde kalırsın ve sana tavşan deliğinin ne kadar derin olduğunu gösteririm. Unutma… Sana gerçeği öneriyorum. O kadar.</p>
+              <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-2x">
+          <div class="card-header">
+            <h4>Key</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>cokgizlikey</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-2x">
+          <div class="card-header">
+            <h4>Cipher Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>U2FsdGVkX1//IoH8EexhYOJX39N/wlMCNIr9/UqkJPMSJhu/jU5O3Gmbyx4dhEpsIAM8mkyrpYRrpzON/AYu+VcjyrJf+YSUCheB5Umdq+1kC4sNNE7VaO1kZcoZin3RgGkEbEReNp7CQkdBO7K/6XlQ9yq3o867Sp87enjnylo/g3K0onPOUETufVoNfjsc4DxeukHT+Mm/sKRXT2JjVlPMl7UnDX3yMTelTFDAGsHNzZYjJkE+K4I/mEtHU5gXnu+u4rQmpb6Z+OP8oOyHukCu+zsXFQrme5XtqLYI4tuMcwtfW83xM8x6XiBP4mOMZUT64d+7OoCybyCHURp1QnK0i2W7MHRHSTsnAEzBuI0J6l93HnAM9lZs8BW3kst5TFj6ETnpr8nGl2mYUwe/E2cQq9NH/4PW9zy5rlHmG37mStLcjEac2pw0XhHvAt4oXHdHjoFEp+J388w7uGEVH1+lN2cWAIFktXurmRMTAbiS5+n1YcSUk30FUlfVKAAJic/yLous/T9ALCDB0t4UUQ==</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row list-row">
+      <div class="col col-4">
+        <div class="card card-height-2x">
+          <div class="card-header">
+            <h4>Plain Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>Ne yazik ki, kimseye Matrix’in ne olduğu anlatılamaz. Kendin görmelisin. Bu, son firsatın. Buradan sonra dönüş yok. Mavi hapı alırsan hikaye biter. Yatağında uyanır ve istediğin şeye inanırsın. Kırmızı hapı alırsan Mucize Ülkesi’nde kalırsın ve sana tavşan deliğinin ne kadar derin olduğunu gösteririm. Unutma… Sana gerçeği öneriyorum. O kadar.</p>
+              <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-2x">
+          <div class="card-header">
+            <h4>Key</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>1010111001001010111001010111010111010101110101010101111111000000101100010011</p>
+              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col col-4">
+        <div class="card card-height-2x">
+          <div class="card-header">
+            <h4>Cipher Text</h4>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>U2FsdGVkX185f6f6Nqd+akVha8dbGrik1kR5xKU1NAluyqUGQeWsmvy3PfMR5nOCdOdmeNFGLynNuKevUjVf9M9kd0CM3iA3wYpbftVgLjaYlRePJYWzh0j91k4OCDCBGyVnl1inkcyueSqI+WtQGXOENu+z2cgPOCFHOFJ8EIXCBerMeXBxj6P3niWV3cKcYZT2MrISdympm43Y3TT6aW4RjFRYhdy0B5dtuq2Ni+UlvVX1yxp2tkE2DOcDTOgyEg9OUGJxvjnZoo/b10RdZcQl6DwIy1MSojarZZpdVQxHEL0X8QZnvEjBtAH7OS3f+S74jhKAqPNa9LzB9X6XJxJdQn39gnXugPJy45RcsjhvuICNLQn4ah1xrlwIV7ujHZU/CRBxM9tmNEDxEad8LfyWx7VY6ksGOJz0gibrb4Wtj4F+v9hPm0CdFWLrL3p7e1/xy9ok9olJ2IrCQvh3l9I6CzZMSV9/cp71b5Zk1lNQtcaAQuUP0InP7YbQcsx7DfOTgi8F2RtuIJbbv+Ar5A==</p>              
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-row">
+    <h1>Routes</h1>
+  
+    <div class="card list-row">
+      <div class="card-header">
+        <h4 class="card-title">AES chats</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Bu sayfada siteye kayıtlı kişilerin AES ile şifrelenmiş konuşmalarını görebilirsiniz. Bir konuşmaya girdiğinizde o konuşmadaki kişilerden birisi iseniz şifreli metinlerin çözülmüş halini göreceksiniz. Eğer o konuşmadaki kişilerden biri değilseniz veri tabanındaki şifreli halini göreceksiniz.</p>
+        <p class="blockquote-footer">Login olmadan sayfaya erişemezsiniz.</p>
+        <a href="/aes-chats">Go to AES chats</a>
+      </div>
+    </div>
+  
+    <div class="card list-row">
+      <div class="card-header">
+        <h4 class="card-title">AES chating</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Bu sayfada veri tabanındaki tüm kullanıcılar listelenir. Bir kullanıcıya tıklayarak mesaj atabilirsiniz. Daha önceki konuşmalarınızı veri tabanından şifreli metinlerin çözülmüş hallerini göreceksiniz.</p>
+        <p class="blockquote-footer">Login olmadan sayfaya erişemezsiniz.</p>
+        <a href="/aes-chating" >Go to AES chating</a>
+      </div>
+    </div>
+  
+    <div class="card list-row">
+      <div class="card-header">
+        <h4 class="card-title">Send spam</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Bu sayfada veri tabanındaki tüm kullanıcılar listelenir. Bir kullanıcıya tıklayarak spam mesaj atabilirsiniz. Daha önceki konuşmalarınızı veri tabanından şifreli metinlerin çözülmüş hallerini göreceksiniz. Eğer veri tabanından mesajı değiştirilmişse 'Bu içerik değiştirilmiş' yazısını bulacaksınız.</p>
+        <p class="blockquote-footer">Login olmadan sayfaya erişemezsiniz.</p>
+        <a href="/send-spam" >Go to Send spam</a>
+      </div>
+    </div>
+  
+    <div class="card list-row">
+      <div class="card-header">
+        <h4 class="card-title">Spam analysis</h4>
+      </div>
+      <div class="card-body">
+        <p class="card-text">Bu sayfada veri tabanındaki spam mesajların içeriği, şifreli hali, özetleri ve her spam mesajdaki bulunan kelimelerin kaç kez tekrar ettiği bulunur. Her kelimenin toplamda kaç kez üretildiği grafikle gösterilmektedir. En çok benzeyen iki spam mesajın içerikleri kelimelerin kaçar kez geçtiği. Özetlerinin benzerlik oranı gösterilmektedir.</p>
+        
+        <a href="/spam-analysis">Go to Spam analysis</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<% if ( typeof scroll_down != "undefined" ) { %>
+ 
+  <script>
+    function Scrolldown() {
+      document.getElementById('<%= scroll_down %>').scrollIntoView({
+      behavior: 'smooth'
+      });
+    }
+    window.onload = Scrolldown;
+  </script>
+
+<% } %> 

@@ -1,0 +1,121 @@
+<div class="container chat-container">
+  <div class="chat-container-column">
+    <div class="row chat-container-row">
+      <div class="chat-panel col col-5 chat-panel-left-side">
+        <div class="chat-header">
+          <div class="chat-user">
+            <div class="pp-container">
+              <div class="pp"><%= sessionUsername.charAt(0).toUpperCase() %></div>
+            </div>
+            <div class="pn-container">
+              <div class="pn">@<%= sessionUsername %></div>
+            </div>
+          </div>
+        </div>
+        <% if(typeof chats == "undefined" || chats[0] == null){ %> 
+
+          <div class="xy-center-container" style="position: relative; text-align: center;">
+            <p>Hiç sohbet yok.</p>
+            <a href="/aes-chating">Sohbet başlat</a>
+          </div>
+        <% } else { %>
+          <div class="chat-users-body scrollbar style-1">
+            <% for(let i = 0 ; i< chats.length ; i++) { %> 
+              <a href="/aes-chats/<%= chats[i]._id  %>">
+                <div class="chat-<%= (i % 2) %>">
+                  <div class="chat-user">
+                    <div class="chat-user-start">
+                      <div class="pp-container">
+                        <div class="pp"><%= chats[i].user1.charAt(0).toUpperCase() %></div>
+                      </div>
+                      <div class="pn-container">
+                        <div class="pn">@<%= chats[i].user1 %></div>
+                      </div>
+                    </div>
+                    <div class="chat-user-start">
+                      <div class="pp-container">
+                        <div class="pp"><%= chats[i].user2.charAt(0).toUpperCase() %></div>
+                      </div> 
+                      <div class="pn-container">
+                        <div class="pn">@<%= chats[i].user2 %></div>
+                      </div>                     
+                    </div>
+                  </div>
+                </div>
+              </a>
+            <% } %> 
+          </div>
+        <% } %> 
+
+      </div>
+
+      <div class="chat-panel col col-7">
+        
+        <div class="chat-header">
+          <% if(typeof focusChat != 'undefined') {%> 
+            <div class="chat-user">  
+              <div class="chat-user-start">
+                <div class="pp-container">
+                  <div class="pp"><%= focusChat.user1.charAt(0).toUpperCase() %></div>
+                </div>
+                <div class="pn-container">
+                  <div class="pn semi-bold">@<%= focusChat.user1 %></div>
+                </div>
+              </div>
+              <div class="chat-user-end">
+                <div class="pp-container">
+                  <div class="pp"><%= focusChat.user2.charAt(0).toUpperCase() %></div>
+                </div>
+                <div class="pn-container" style="width: auto;" >
+                  <div class="pn">@<%= focusChat.user2 %></div>
+                </div>
+              </div>
+            </div>
+          <% } %> 
+        </div>
+        <% if(typeof focusChat != 'undefined') {%> 
+          <div id="chat-messages-body" class="chat-messages-body scrollbar style-1">
+            <% if(typeof messages != "undefined" && messages[0] != null ){ %> 
+              <% for(let i = 0 ; i< messages.length ; i++) { %>       
+                <div class="container"> 
+                  <div class="row message-row">
+                    <div class="column-1">
+                      <div class="pp-container">
+                        <div class="pp"><%= messages[i].fromUser.charAt(0).toUpperCase() %></div>
+                      </div>
+                    </div>
+                    <div class="column-8">
+                      <div class="message-head">
+                        <span class="pn">@<%= messages[i].fromUser %></span>
+                        <span class="message-time"><%= messages[i].time %></span>
+                      </div>
+                        <p><%= messages[i].content %> </p>
+                    </div>
+                  </div>
+                </div>
+              <% } %>          
+            <% } %>
+          </div>
+        <% } else {%> 
+          <div class="xy-center-container" style="position: relative; text-align: center;">
+            <p>Mesajlarını görmek istediğiniz sohbeti seçin.</p>
+          </div>
+        <% } %>  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+  const chat_messages_body = document.getElementById('chat-messages-body');
+  if(chat_messages_body != null){
+    function Scrolldown() {
+      chat_messages_body.scrollTop = chat_messages_body.scrollHeight;
+    }
+    window.onload = Scrolldown;
+  }
+</script>
+

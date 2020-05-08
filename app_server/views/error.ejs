@@ -1,0 +1,17 @@
+<div class="container" >
+    <h1>Hata!</h1>
+    
+    <% if ( typeof type != "undefined" ) { %>
+        <div class="alert alert-<%= type%> error-alert" role="alert">
+            <% if ( typeof title != "undefined" ) { %>
+                <h2 class="title" >Hata yeri : <%= title%></h2>
+            <% } %>
+            <% if ( typeof errorMessage != "undefined" ) { %>
+                <span class="errorMessage" ><%= errorMessage%></span>
+            <% } %>
+        </div>              
+    <% } %>
+
+</div>
+
+<!-- res.render('error', { type: 'danger', title:'postSendSpam() newSpam.save', errorMessage:err }); -->

@@ -1,0 +1,118 @@
+<div class="container chat-container">
+    <div class="chat-container-column">
+      <div class="row chat-container-row">
+        <div class="chat-panel col col-12">
+          
+            <div class="chat-header">
+                <div class="chat-user">
+                  <% if(typeof sessionUsername != 'undefined') { %> 
+                    <div class="pp-container">
+                      <div class="pp"><%= sessionUsername.charAt(0).toUpperCase() %></div>
+                    </div>
+                    <div class="pn-container">
+                      <div class="pn">@<%= sessionUsername %></div>
+                    </div>
+                  <% } %> 
+                </div>
+            </div>
+  
+
+            <div id="chat-messages-body" class="chat-messages-body scrollbar style-1"> 
+              <% if(typeof images != "undefined"  && images[0] != null){ %> 
+                <% for(let i = 0 ; i< images.length ; i++) { %>       
+                  <div class="container"> 
+                    <div class="row message-row">
+                      <div class="column-1">
+                        <div class="pp-container">
+                          <div class="pp"><%= images[i].fromUser.charAt(0).toUpperCase() %></div>
+                        </div>
+                      </div>
+                      <div class="column-9">
+                        <div class="message-head">
+                          <span class="pn">@<%= images[i].fromUser %></span>
+                          <!-- <span class="message-time"><%= images[i].time %></span> -->
+                        </div>
+                        <div class="message-img-container">
+                          <img class="message-img"  src="<%= images[i].imageUrlFront %>" alt="imaj bulunamadi.">
+                        </div >
+                        <div class="message-img-container">
+                          <% if(typeof images[i].decryptedMessage != 'undefined') { %> 
+                            <p><%= images[i].decryptedMessage  %></p>
+                          <% } else if(typeof images[i].encryptedMessage != 'undefined') { %> 
+                          <p><%= images[i].encryptedMessage  %></p>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>          
+              <% } %>            
+            </div>
+            <div class="form-send-message-container">
+              <form action="/send-image" enctype="multipart/form-data" class="form-send-message" method="post">
+
+                <% if ( typeof status != "undefined") { %>
+                  <div class="alert alert-<%= type%> <%= status%>" role="alert">
+                    <span class="" ><%= message%></span>
+                  </div>
+                        
+                  <% } %>
+
+                <div class="input-group input-row">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Kişi</label>
+                  </div>
+<!--                   <select name="targetUserId" class="custom-select" id="inputGroupSelect01"> -->
+                  <select name="target_username" class="custom-select" id="inputGroupSelect01">
+                    <option selected>İmajı göndereceğiniz kişiyi seçin</option>
+                    <% if(typeof users != "undefined"  && users[0] != null){ %>
+                      <% for(let i = 0 ; i< users.length ; i++) { %>
+                        <% if(users[i].username == sessionUsername){continue;} %> 
+                        <option value="<%=users[i].username  %>"><%=users[i].username  %></option>
+                      <% } %> 
+                    <% } %> 
+                  </select>
+                </div>
+
+                <div class="input-group input-row">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Foto</span>
+                  </div>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" >
+                    <label class="custom-file-label" id="inputImageName" for="inputImage">İmajı seçin</label>
+                  </div>
+                </div>
+
+                <div class="input-group input-row">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"> 
+                      <span>AES</span>                   
+                    </div>                
+                  </div>
+                  <input type="text" name="message_text"  class="form-control" placeholder="Bir mesaj yaz">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary" >Send</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <script>
+
+    const chat_messages_body = document.getElementById('chat-messages-body');
+    if(chat_messages_body != null){
+      function Scrolldown() {
+        chat_messages_body.scrollTop = chat_messages_body.scrollHeight;
+      }
+      window.onload = Scrolldown;
+    }
+  </script>
+  
+  

@@ -1,0 +1,145 @@
+<div class="container page-container">
+
+    
+      <% if( typeof warning !='undefined' && warning == 'no-spam' ) { %>
+        <div class="row list-row"> 
+          <div class="col col-12 alert alert-warning error-alert" role="alert">
+            <p>Analiz için yeterince spam bulunamadı.</p>
+            <a href="/send-spam">Yeni spam gönder</a>
+          </div>
+        </div>
+      <% } else { %> 
+    
+    <h1>Analysis</h1>
+ 
+    <div class="row list-row">
+        <div class="col col-12 ">
+          <div class="analysis-div">
+            <% if(typeof oneHundredWordStory != 'undefined' && typeof numberOfWordsInTheStory != 'undefined') {%>
+                <h4>100 Word Story (Plans)</h4>
+                <p><%= oneHundredWordStory %></p>
+                <b>Paragraftaki kelimelerin tekrar sayısı</b>
+                <p><%= numberOfWordsInTheStory %>, others : 1x</p>
+                       
+            <% } else { %> 
+                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+                
+            <% } %> 
+          </div>
+        </div>
+    </div>
+    
+    <div class="row list-row">
+        <div class="col col-12 ">
+          <div class="analysis-div">    
+            <% if(typeof analysisOfSpam != 'undefined' &&  analysisOfSpam[0] !=null) { %> 
+                <% for(let i=0; i<analysisOfSpam.length;i++) { %> 
+                    <!-- <h4>Spam <span> analysisOfSpam[i].analysisIndex+1 </span></h4> -->
+                    <h4>Spam <span><%= i+1 %></span></h4>
+                    <b>Plain Text</b>
+                    <p><%= analysisOfSpam[i].decryptedMessage %></p>
+                    <b>Paragraftaki kelimelerin tekrar sayısı</b>
+                    <p><%= analysisOfSpam[i].numberOfWordsInTheSpam %></p>
+                    <b>Cipher Text</b>
+                    <p><%= analysisOfSpam[i].content %></p>
+                    <b>Cipher Text'in Hash'i</b>
+                    <p><%= analysisOfSpam[i].contentHash %></p>
+                    <br>
+                    
+                <% } %> 
+            <% } else { %> 
+                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+
+            <% } %> 
+          </div>  
+        </div>
+    </div>
+    
+    <div class="row list-row">
+        <div class="col col-12">
+          <div class="analysis-div">
+            <% if(typeof words != 'undefined' && typeof wordCounter != 'undefined') { %>
+            <h4>Kelimelerin sıklıkları</h4>
+            <div id="words" class="hidden" ><%= words %></div>
+            <div id="wordCounter" class="hidden" ><%= wordCounter %></div>
+            
+            <div id="chart">
+            </div>
+              
+            <% } else { %> 
+                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+
+            <% } %>  
+          </div>
+        </div>
+    </div>
+    
+    <div class="row list-row">
+        <div class="col col-12">
+          <div class="analysis-div"> 
+            <% if(typeof indexOfMostSimilarSpam1 != 'undefined' && typeof indexOfMostSimilarSpam2 != 'undefined' && typeof analysisOfSpam != 'undefined' && analysisOfSpam[0] !=null ) { %>
+            <h4>En çok benzeyen iki spam mesaj</h4>
+            <b>Spam mesaj <%= indexOfMostSimilarSpam1+1 %> </b>
+            <p><%= analysisOfSpam[indexOfMostSimilarSpam1].decryptedMessage %></p>
+            <b>Paragraftaki kelimelerin tekrar sayısı</b>
+            <p><%= analysisOfSpam[indexOfMostSimilarSpam1].numberOfWordsInTheSpam %></p>
+            <b>Şifreli mesajın özeti</b>
+            <p><%= analysisOfSpam[indexOfMostSimilarSpam1].contentHash %></p>
+                   
+            <b>Spam mesaj <%= indexOfMostSimilarSpam2+1 %></b>
+            <p><%= analysisOfSpam[indexOfMostSimilarSpam2].decryptedMessage %></p>
+            <b>Paragraftaki kelimelerin tekrar sayısı</b>
+            <p><%= analysisOfSpam[indexOfMostSimilarSpam2].numberOfWordsInTheSpam %></p>
+            <b>Şifreli mesajın özeti</b>
+            <p><%= analysisOfSpam[indexOfMostSimilarSpam2].contentHash %></p>
+
+            <b>Spam mesaj <%= indexOfMostSimilarSpam1+1 %>  ve spam mesaj <%= indexOfMostSimilarSpam2+1 %> kelimelerinin benzerlik oranı</b>
+            <p><%= similarityScoreOfSpams %></p>
+               
+            <b>Spam mesaj <%= indexOfMostSimilarSpam1+1 %> ve spam mesaj <%= indexOfMostSimilarSpam2+1 %> özetlerinin benzerlik oranı</b>
+            <p><%= hashSimilarityScore %></p>
+            <% } else { %> 
+                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+            <% } %> 
+          </div>
+        </div>
+    </div>
+
+  <% } %>  
+
+</div>
+
+
+<script>
+
+    var words = document.querySelector("#words").textContent;
+    words = JSON.parse(words);
+    var wordCounter = document.querySelector("#wordCounter").textContent;
+    wordCounter = JSON.parse(wordCounter);
+
+
+    var options = {
+          series: [{
+          data: wordCounter
+        }],
+          chart: {
+          type: 'bar',
+          height: 1500
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: words
+        },
+        colors: ['#343A40']
+    };
+    //['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan','United States', 'China', 'Germany']
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+</script>

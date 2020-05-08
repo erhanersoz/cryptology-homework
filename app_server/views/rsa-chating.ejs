@@ -1,0 +1,121 @@
+<div class="container chat-container">
+  <div class="chat-container-column">
+    <div class="row chat-container-row">
+      <div class="chat-panel col col-3 chat-panel-left-side">
+        <div class="chat-header">
+          <div class="chat-user">
+            <div class="pp-container">
+              <div class="pp"><%= sessionUsername.charAt(0).toUpperCase() %></div>
+            </div>
+            <div class="pn-container">
+              <div class="pn">@<%= sessionUsername %></div>
+            </div>
+          </div>
+        </div>
+        <% if(typeof users != "undefined"){ %> 
+          <% if (users.length == 1) { %>
+            <div class="xy-center-container" style="position: relative; text-align: center;">
+              <p>Başka üye yok.</p>
+              <a href="/register">Yeni hesap oluştur</a>
+            </div>
+          <% } else { %>    
+            <div class="chat-users-body scrollbar style-1"> 
+              <% for(let i = 0 ; i<users.length ; i++){ %> 
+                <% if(sessionUsername == users[i].username) continue; %> 
+                <a href="/rsa-chating/<%= users[i].username  %>">
+                  <div class="chat">
+                    <div class="chat-user">
+                      <div class="pp-container">
+                        <div class="pp"><%= users[i].username.charAt(0).toUpperCase() %></div>
+                      </div>
+                      <div class="pn-container">
+                        <div class="pn">@<%= users[i].username  %></div>
+                      </div>
+                    </div>
+                  </div>
+                </a>                
+              <% } %> 
+            </div>
+          <% } %> 
+        <% } %>
+      </div>
+
+      <div class="chat-panel col col-9">
+        
+        <div class="chat-header">
+          <% if(typeof targetUsername != "undefined"){ %> 
+            <div class="chat-user">            
+              <div class="pp-container">
+                
+                <div class="pp"><%= targetUsername.charAt(0).toUpperCase() %></div>
+                
+              </div>
+              <div class="pn-container">
+                <div class="pn">@<%= targetUsername  %></div>
+              </div>
+            </div>
+          <% } %> 
+        </div>
+
+        <% if(typeof targetUsername != "undefined"){ %> 
+          <div id="chat-messages-body" class="chat-messages-body scrollbar style-1">       
+            <% if(typeof messages != "undefined"  && messages[0] != null){ %> 
+              <% for(let i = 0 ; i< messages.length ; i++) { %>       
+                <div class="container"> 
+                  <div class="row message-row">
+                    <div class="column-1">
+                      <div class="pp-container">
+                        <div class="pp"><%= messages[i].fromUser.charAt(0).toUpperCase() %></div>
+                      </div>
+                    </div>
+                    <div class="column-9">
+                      <div class="message-head">
+                        <span class="pn">@<%= messages[i].fromUser %></span>
+                        <span class="message-time"><%= messages[i].time %></span>
+                      </div>
+                      <p><%= messages[i].content %> </p>
+                    </div>
+                  </div>
+                </div>
+              <% } %>          
+            <% } %>            
+          </div>
+          <div class="form-send-message-container">
+            <form action="/rsa-chating" class="form-send-message" method="post">
+              <input type="hidden" name="session_user" value="<%= sessionUsername  %>">
+              <input type="hidden" name="target_username" value="<%= targetUsername  %>">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text input-group-text-w-40">
+                      <input name="man_in_the_middle" type="checkbox">                      
+                    </div>  
+                    <span class="input-group-text" style="width: fit-content;" >Ortadaki adama gönder</span>                  
+                  </div>
+                  <input type="text" name="message_text"  class="form-control" placeholder="Bir mesaj yaz">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary" >Send</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        <% } else {%> 
+          <div class="xy-center-container" style="position: relative; text-align: center;">
+            <p>Mesaj göndermek istediğiniz kullanıcıyı seçin.</p>
+          </div>
+        <% } %> 
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const chat_messages_body = document.getElementById('chat-messages-body');
+  if(chat_messages_body != null){
+    function Scrolldown() {
+      chat_messages_body.scrollTop = chat_messages_body.scrollHeight;
+    }
+    window.onload = Scrolldown;
+  }
+</script>
+
