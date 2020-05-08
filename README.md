@@ -6,12 +6,12 @@ Bu proje kriptoloji proje ödevi için hazırlanmıştır.
 [MongoDB community server](https://www.mongodb.com/download-center/community)'ı kurun.
 [Node.js](https://nodejs.org/en/download/)'i kurun.
 
-```node
+```bash
 npm install
 ```
 
 ## Kullanım
-```node
+```bash
 node app.js
 ```
 Default olarak [http://localhost:3000/](http://localhost:3000/)'da çalışır.
