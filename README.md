@@ -55,12 +55,6 @@ Bütün spamlere bakılarak her kelimenin toplamda kaç kez tekrarlandığı gra
 - **En çok benzeyen iki spam mesaj :**
 En çok benzeyen iki spamin plaint texti, kelimelerinin tekrar sayısı, cipher textinin özeti, textlerin benzerlik oranı, özetlerinin benzerlik oranları gösterilir.
 
-### Send spam
-- **Sol panel :**
-Bu panelde uygulamaya kayıtlı bütün kullanıcılar listelenir.
-- **Sağ panel :**
-Bu panel rastgele üretilmiş spam mesajıyla birlikte gelir ve oturum sahibi soldaki panelden seçtiği kişiye bu spam mesajını gönderebilir. Eğer veritabanından içerik değiştirilirse, arayüzde mesaj içeriği : 'bu mesajın içeriği değiştirilmiş.' olarak gösterilir. :warning: eğer bir mesajın içeriğini değiştirirseniz *Spam analysis* bozulur. Önce analizlere bakmanız lazım.
-
 ### RSA chating
 - **Sol panel :**
 Bu panelde uygulamaya kayıtlı bütün kullanıcılar listelenir.
