@@ -16,7 +16,47 @@ node app.js
 ```
 Default olarak [http://localhost:3000/](http://localhost:3000/)'da çalışır.
 
-### Proje adımları
+## Sayfalar nasıl kullanılır ve nasıl çalışır
+### Index
+- **Encryption :**
+Plain text ve key girip Encrypt butonuyla AES şifreleme yapılabilir.
+- **Decryption :**
+Cipher text ve key girip Decrypt butonuyla AES şifre çözme yapılabilir.
+- **Examples :**
+Adım 2 deki istenilen örnekler gösterilir. Bu kısım dinamik değildir. Bir üstteki decryptiondan sağlama yapılabilir. 
+- **Routes :**
+Projenin sayfalarının tanıtıldığı kısım.
+
+### AES chats
+- **Sol panel :**
+Bu panelde daha önce oluşturulmuş aes sohbetleri listelenir.
+- **Sağ panel :**
+Bu panelde sol panelden seçilmiş sohbetin içeriği listelenir. Eğer oturum hesabı sohbetteki kişilerden birisi ise mesaj şifresi çözülür değilse şifreli mesajlar getirilir.
+
+### AES chating
+- **Sol panel :**
+Bu panelde uygulamaya kayıtlı bütün kullanıcılar listelenir.
+- **Sağ panel :**
+Bu panelde sol panelden seçilmiş kullanıcı ile oturum hesabının sohbetinin içeriği listelenir. Mesaj şifreleri çözülerek getirilir. Yeni şifreli mesaj gönderilebilir. 
+
+### Send spam
+- **Sol panel :**
+Bu panelde uygulamaya kayıtlı bütün kullanıcılar listelenir.
+- **Sağ panel :**
+Bu panel rastgele üretilmiş spam mesajıyla birlikte gelir ve oturum sahibi soldaki panelden seçtiği kişiye bu spam mesajını gönderebilir. Eğer veritabanından içerik değiştirilirse, arayüzde mesaj içeriği : 'bu mesajın içeriği değiştirilmiş.' olarak gösterilir. :warning: eğer bir mesajın içeriğini değiştirirseniz *Spam analysis* bozulur. Önce analizlere bakmanız lazım.
+
+### Spam analysis
+- **100 Word Story (Plans) :**
+Burada seçilen 100 kelimelik hikaye ve onun kelimelerinin kaçar kez tekrarlandığı gösterilir.
+- **Spamler :**
+Her spamin plaint texti, kelimelerinin tekrar sayısı, cipher text ve cipher textinin özeti gösterilir.
+- **Kelimelerin sıklıkları :**
+Bütün spamlere bakılarak her kelimenin toplamda kaç kez tekrarlandığı grafik ile gösterilir.
+- **En çok benzeyen iki spam mesaj :**
+En çok benzeyen iki spamin plaint texti, kelimelerinin tekrar sayısı, cipher textinin özeti, textlerin benzerlik oranı, özetlerinin benzerlik oranları gösterilir.
+
+
+## Proje adımları
 **Adım 1**
 - [x] **Adım 1 : hello**
   - [x] Mail atma yapıldı
