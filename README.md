@@ -1,5 +1,5 @@
 # cryptology-homework
-Foobar is a Python library for dealing with word pluralization.
+Bu proje kriptoloji proje ödevi için hazırlanmıştır.
 
 ## Kurulum
 
@@ -12,11 +12,11 @@ npm install
 
 ## Kullanım
 ```node
-npm app.js
+node app.js
 ```
 Default olarak [http://localhost:3000/](http://localhost:3000/)'da çalışır.
 
-### Bilgi
+### Proje adımları
 **Adım 1**
 - [x] **Adım 1 : hello**
   - [x] Mail atma yapıldı
