@@ -1,14 +1,15 @@
 {
-  "name": "kriptoloji_proje_v2",
+  "name": "cryptology-homework",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "erhanersoz",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
     "compute-cosine-similarity": "^1.0.0",
@@ -19,7 +20,7 @@
     "express-ejs-layouts": "^2.5.0",
     "express-fileupload": "^1.1.9",
     "express-session": "^1.17.0",
-    "mongoose": "^5.9.3",
+    "mongoose": "^5.9.27",
     "node-rsa": "^1.0.8",
     "steggy-noencrypt": "^2.0.3",
     "string-similarity": "^4.0.1",
