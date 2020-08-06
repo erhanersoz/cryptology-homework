@@ -15,8 +15,8 @@
         <% if(typeof users != "undefined"){ %> 
           <% if (users.length == 1) { %>
             <div class="xy-center-container" style="position: relative; text-align: center;">
-              <p>Başka üye yok.</p>
-              <a href="/register">Yeni hesap oluştur</a>
+              <p>There are no other users.</p>
+              <a href="/register">Create new account</a>
             </div>
           <% } else { %>    
             <div class="chat-users-body scrollbar style-1"> 
@@ -80,7 +80,6 @@
               <% } %>          
             <% } %>      
           </div>
-          <!-- <div id="chat-messages-text-spam">  -->           
             <div class="form-send-message-container">   
               <form action="/send-spam" class="form-send-message" method="post">      
                 <input type="hidden" name="target_username" value="<%= targetUsername  %>">       
@@ -95,7 +94,7 @@
             </div>              
         <% } else { %> 
           <div class="xy-center-container" style="position: relative; text-align: center;">
-            <p>Spam göndermek istediğiniz kullanıcıyı seçin.</p>
+            <p>Please select a chat to send spam</p>
           </div>
         <% } %>
       </div>

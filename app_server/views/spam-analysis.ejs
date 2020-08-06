@@ -4,13 +4,13 @@
       <% if( typeof warning !='undefined' && warning == 'no-spam' ) { %>
         <div class="row list-row"> 
           <div class="col col-12 alert alert-warning error-alert" role="alert">
-            <p>Analiz için yeterince spam bulunamadı.</p>
-            <a href="/send-spam">Yeni spam gönder</a>
+            <p>Not enough spam for analysis.</p>
+            <a href="/send-spam">Send a new spam</a>
           </div>
         </div>
       <% } else { %> 
     
-    <h1>Analysis</h1>
+    <h1>Analysis of spams</h1>
  
     <div class="row list-row">
         <div class="col col-12 ">
@@ -18,11 +18,11 @@
             <% if(typeof oneHundredWordStory != 'undefined' && typeof numberOfWordsInTheStory != 'undefined') {%>
                 <h4>100 Word Story (Plans)</h4>
                 <p><%= oneHundredWordStory %></p>
-                <b>Paragraftaki kelimelerin tekrar sayısı</b>
+                <b>Number of repetitions of words in the paragraph</b>
                 <p><%= numberOfWordsInTheStory %>, others : 1x</p>
                        
             <% } else { %> 
-                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+                <p>Not enough spam for analysis.</p>
                 
             <% } %> 
           </div>
@@ -36,19 +36,19 @@
                 <% for(let i=0; i<analysisOfSpam.length;i++) { %> 
                     <!-- <h4>Spam <span> analysisOfSpam[i].analysisIndex+1 </span></h4> -->
                     <h4>Spam <span><%= i+1 %></span></h4>
-                    <b>Plain Text</b>
+                    <b>Plaintext</b>
                     <p><%= analysisOfSpam[i].decryptedMessage %></p>
-                    <b>Paragraftaki kelimelerin tekrar sayısı</b>
+                    <b>Number of repetitions of words in the paragraph</b>
                     <p><%= analysisOfSpam[i].numberOfWordsInTheSpam %></p>
-                    <b>Cipher Text</b>
+                    <b>Ciphertext</b>
                     <p><%= analysisOfSpam[i].content %></p>
-                    <b>Cipher Text'in Hash'i</b>
+                    <b>Hash of ciphertext</b>
                     <p><%= analysisOfSpam[i].contentHash %></p>
                     <br>
                     
                 <% } %> 
             <% } else { %> 
-                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+                <p>Not enough spam for analysis.</p>
 
             <% } %> 
           </div>  
@@ -59,7 +59,7 @@
         <div class="col col-12">
           <div class="analysis-div">
             <% if(typeof words != 'undefined' && typeof wordCounter != 'undefined') { %>
-            <h4>Kelimelerin sıklıkları</h4>
+            <h4>Number of repetitions of words</h4>
             <div id="words" class="hidden" ><%= words %></div>
             <div id="wordCounter" class="hidden" ><%= wordCounter %></div>
             
@@ -67,8 +67,7 @@
             </div>
               
             <% } else { %> 
-                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
-
+                <p>Not enough spam for analysis.</p>
             <% } %>  
           </div>
         </div>
@@ -78,28 +77,29 @@
         <div class="col col-12">
           <div class="analysis-div"> 
             <% if(typeof indexOfMostSimilarSpam1 != 'undefined' && typeof indexOfMostSimilarSpam2 != 'undefined' && typeof analysisOfSpam != 'undefined' && analysisOfSpam[0] !=null ) { %>
-            <h4>En çok benzeyen iki spam mesaj</h4>
-            <b>Spam mesaj <%= indexOfMostSimilarSpam1+1 %> </b>
+            <h4>The most similar two spams</h4>
+            <br>
+            <span><b><%= indexOfMostSimilarSpam1+1 %>. Spam</b></span>
             <p><%= analysisOfSpam[indexOfMostSimilarSpam1].decryptedMessage %></p>
-            <b>Paragraftaki kelimelerin tekrar sayısı</b>
+            <span><b>Number of repetitions of words in the paragraph</b></span>
             <p><%= analysisOfSpam[indexOfMostSimilarSpam1].numberOfWordsInTheSpam %></p>
-            <b>Şifreli mesajın özeti</b>
+            <span><b>Hash of ciphertext</b></span>
             <p><%= analysisOfSpam[indexOfMostSimilarSpam1].contentHash %></p>
-                   
-            <b>Spam mesaj <%= indexOfMostSimilarSpam2+1 %></b>
+            <br>   
+            <span><b><%= indexOfMostSimilarSpam2+1 %>. Spam</b></span>
             <p><%= analysisOfSpam[indexOfMostSimilarSpam2].decryptedMessage %></p>
-            <b>Paragraftaki kelimelerin tekrar sayısı</b>
+            <span><b>Number of repetitions of words in the paragraph</b></span>
             <p><%= analysisOfSpam[indexOfMostSimilarSpam2].numberOfWordsInTheSpam %></p>
-            <b>Şifreli mesajın özeti</b>
+            <span><b>Hash of ciphertext</b></span>
             <p><%= analysisOfSpam[indexOfMostSimilarSpam2].contentHash %></p>
-
-            <b>Spam mesaj <%= indexOfMostSimilarSpam1+1 %>  ve spam mesaj <%= indexOfMostSimilarSpam2+1 %> kelimelerinin benzerlik oranı</b>
+            <br>
+            <span><b>Similarity ratio of words of <%= indexOfMostSimilarSpam1+1 %>th spam  and words of <%= indexOfMostSimilarSpam2+1 %>th spam</b></span>
             <p><%= similarityScoreOfSpams %></p>
-               
-            <b>Spam mesaj <%= indexOfMostSimilarSpam1+1 %> ve spam mesaj <%= indexOfMostSimilarSpam2+1 %> özetlerinin benzerlik oranı</b>
+
+            <span><b>Similarity ratio of hash of <%= indexOfMostSimilarSpam1+1 %>th spam  and hash of <%= indexOfMostSimilarSpam2+1 %>th spam</b></span>   
             <p><%= hashSimilarityScore %></p>
             <% } else { %> 
-                <p>Hiç spam mesaj bulunamadı veya sadece bir tane bulundu</p>
+                <p>Not enough spam for analysis.</p>
             <% } %> 
           </div>
         </div>

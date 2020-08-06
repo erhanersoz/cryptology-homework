@@ -30,10 +30,9 @@
                       <div class="column-9">
                         <div class="message-head">
                           <span class="pn">@<%= images[i].fromUser %></span>
-                          <!-- <span class="message-time"><%= images[i].time %></span> -->
                         </div>
                         <div class="message-img-container">
-                          <img class="message-img"  src="<%= images[i].imageUrlFront %>" alt="imaj bulunamadi.">
+                          <img class="message-img"  src="<%= images[i].imageUrlFront %>" alt="no image.">
                         </div >
                         <div class="message-img-container">
                           <% if(typeof images[i].decryptedMessage != 'undefined') { %> 
@@ -60,11 +59,10 @@
 
                 <div class="input-group input-row">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Kişi</label>
+                    <label class="input-group-text" for="inputGroupSelect01">To</label>
                   </div>
-<!--                   <select name="targetUserId" class="custom-select" id="inputGroupSelect01"> -->
                   <select name="target_username" class="custom-select" id="inputGroupSelect01">
-                    <option selected>İmajı göndereceğiniz kişiyi seçin</option>
+                    <option selected>Choose recipient</option>
                     <% if(typeof users != "undefined"  && users[0] != null){ %>
                       <% for(let i = 0 ; i< users.length ; i++) { %>
                         <% if(users[i].username == sessionUsername){continue;} %> 
@@ -76,11 +74,11 @@
 
                 <div class="input-group input-row">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Foto</span>
+                    <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
                   </div>
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" >
-                    <label class="custom-file-label" id="inputImageName" for="inputImage">İmajı seçin</label>
+                    <label class="custom-file-label" id="inputImageName" for="inputImage">Choose a image</label>
                   </div>
                 </div>
 
@@ -90,7 +88,7 @@
                       <span>AES</span>                   
                     </div>                
                   </div>
-                  <input type="text" name="message_text"  class="form-control" placeholder="Bir mesaj yaz">
+                  <input type="text" name="message_text"  class="form-control" placeholder="Write a message...">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-outline-secondary" >Send</button>
                   </div>
