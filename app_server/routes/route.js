@@ -254,7 +254,7 @@ getSendSpamWithUser = function (req, res) {
         function generateSpam(){
 
             let oneHundredWordStory = `It’s hard to get together with his friends because they all like to hibernate. Everyone mostly prefers staying home, so when they make plans with him they often cancel, last-minute; he can’t blame them, because he also likes to hibernate, and after the initial annoyance, feeling his friends are unreliable or don’t care about him, he’s relieved to stay in with books and music and internet, endless shows to binge-watch and plenty of food and whiskey so really, what’s the point of going anywhere? He has a number of good, close friends who, of course, he hasn’t seen in years.`;
-            oneHundredWordStory= oneHundredWordStory.replace(/\.|,|;/g,""); // özel karakterler çıkarılıyor. 
+            oneHundredWordStory= oneHundredWordStory.replace(/(\.|,|;|\?)/g,""); // özel karakterler çıkarılıyor. 
             const wordArray = oneHundredWordStory.split(" ");
 
             function reverseString(str) {
@@ -376,7 +376,7 @@ getSpamAnalysis = function(req,res){
     // oneHundredWordStory seçilen hikaye
     let oneHundredWordStory = `It’s hard to get together with his friends because they all like to hibernate. Everyone mostly prefers staying home, so when they make plans with him they often cancel, last-minute; he can’t blame them, because he also likes to hibernate, and after the initial annoyance, feeling his friends are unreliable or don’t care about him, he’s relieved to stay in with books and music and internet, endless shows to binge-watch and plenty of food and whiskey so really, what’s the point of going anywhere? He has a number of good, close friends who, of course, he hasn’t seen in years.`;
     data.oneHundredWordStory = oneHundredWordStory;
-    oneHundredWordStory= oneHundredWordStory.replace(/\.|,|;/g,""); // kelimeleri ayıklamak için bazı karakterler çıkartılıyor.    
+    oneHundredWordStory= oneHundredWordStory.replace(/(\.|,|;|\?)/g,""); // kelimeleri ayıklamak için bazı karakterler çıkartılıyor.    
     const wordArray = oneHundredWordStory.split(" ");
     let words = new Array(); // tekrarsız kelimeler.
 
