@@ -61,8 +61,8 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">To</label>
                   </div>
-                  <select name="target_username" class="custom-select" id="inputGroupSelect01">
-                    <option selected>Choose recipient</option>
+                  <select required name="target_username" class="custom-select" id="inputGroupSelect01">
+                    <option value="">Choose recipient</option>
                     <% if(typeof users != "undefined"  && users[0] != null){ %>
                       <% for(let i = 0 ; i< users.length ; i++) { %>
                         <% if(users[i].username == sessionUsername){continue;} %> 
@@ -77,7 +77,7 @@
                     <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
                   </div>
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputImage" accept="image/*" name="image" >
+                    <input type="file" required class="custom-file-input" id="inputImage" accept="image/*" name="image" >
                     <label class="custom-file-label" id="inputImageName" for="inputImage">Choose a image</label>
                   </div>
                 </div>
@@ -88,7 +88,7 @@
                       <span>AES</span>                   
                     </div>                
                   </div>
-                  <input type="text" name="message_text"  class="form-control" placeholder="Write a message...">
+                  <input type="text" required name="message_text"  class="form-control" placeholder="Write a message...">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-outline-secondary" >Send</button>
                   </div>
@@ -111,6 +111,17 @@
       }
       window.onload = Scrolldown;
     }
+
+    var inputImage = document.getElementById('inputImage');
+    var inputImageName = document.getElementById('inputImageName');
+    inputImage.addEventListener('change', function(e){
+    let value = e.target.value;
+    let fileName = value.split('\\').pop();
+    console.log(fileName);
+    inputImageName.classList.add("selected");
+    inputImageName.innerText=fileName;
+});
+
   </script>
   
   
