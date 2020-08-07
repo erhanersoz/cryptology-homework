@@ -27,7 +27,7 @@ const Image = require('../models/image');
 
 
 // arayüzde mesaj gönderilme zamanı için
-const months = ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"];
+const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 
 getIndex = function(req,res){
@@ -254,7 +254,7 @@ getSendSpamWithUser = function (req, res) {
         function generateSpam(){
 
             let oneHundredWordStory = `It’s hard to get together with his friends because they all like to hibernate. Everyone mostly prefers staying home, so when they make plans with him they often cancel, last-minute; he can’t blame them, because he also likes to hibernate, and after the initial annoyance, feeling his friends are unreliable or don’t care about him, he’s relieved to stay in with books and music and internet, endless shows to binge-watch and plenty of food and whiskey so really, what’s the point of going anywhere? He has a number of good, close friends who, of course, he hasn’t seen in years.`;
-            oneHundredWordStory= oneHundredWordStory.replace(/\.|,|;/g,""); // özel karakterler çıkarılıyor. 
+            oneHundredWordStory= oneHundredWordStory.replace(/(\.|,|;|\?)/g,""); // özel karakterler çıkarılıyor. 
             const wordArray = oneHundredWordStory.split(" ");
 
             function reverseString(str) {
@@ -348,7 +348,7 @@ getSendSpamWithUser = function (req, res) {
                                 spams[i].content = decrypted;
                             }
                             else{
-                                spams[i].content = "Bu Mesajın içeriği değiştirilmiş.";                                                    
+                                spams[i].content = "This message has been modified.";                                                    
                             }      
                             let date = new Date;
                             date.setTime(spams[i].created_at);
@@ -376,7 +376,7 @@ getSpamAnalysis = function(req,res){
     // oneHundredWordStory seçilen hikaye
     let oneHundredWordStory = `It’s hard to get together with his friends because they all like to hibernate. Everyone mostly prefers staying home, so when they make plans with him they often cancel, last-minute; he can’t blame them, because he also likes to hibernate, and after the initial annoyance, feeling his friends are unreliable or don’t care about him, he’s relieved to stay in with books and music and internet, endless shows to binge-watch and plenty of food and whiskey so really, what’s the point of going anywhere? He has a number of good, close friends who, of course, he hasn’t seen in years.`;
     data.oneHundredWordStory = oneHundredWordStory;
-    oneHundredWordStory= oneHundredWordStory.replace(/\.|,|;/g,""); // kelimeleri ayıklamak için bazı karakterler çıkartılıyor.    
+    oneHundredWordStory= oneHundredWordStory.replace(/(\.|,|;|\?)/g,""); // kelimeleri ayıklamak için bazı karakterler çıkartılıyor.    
     const wordArray = oneHundredWordStory.split(" ");
     let words = new Array(); // tekrarsız kelimeler.
 
@@ -543,7 +543,7 @@ getRSAChatingWithUser = function(req,res){
             const sessionPEMStringPromise = RSAKey.findOne({userId: user._id}).exec();
             sessionPEMStringPromise.then(function (userKeys) {
                 if(userKeys == null){
-                    res.render('error', { type: 'danger', title:'getRSAChatingWithUser userKeys == null', errorMessage:"Session user key bulunamadi."});
+                    res.render('error', { type: 'danger', title:'getRSAChatingWithUser userKeys == null', errorMessage:"Session user key is not found."});
                 }
                 else{
                     sessionPublicKey = userKeys.publicKey;
@@ -559,7 +559,7 @@ getRSAChatingWithUser = function(req,res){
             const targetUserPEMStringPromise = RSAKey.findOne({userId: user._id}).exec();
             targetUserPEMStringPromise.then(function (userKeys) {
                 if(userKeys == null){
-                    res.render('error', { type: 'danger', title:'getRSAChatingWithUser userKeys == null', errorMessage:"target user key bulunamadi."});
+                    res.render('error', { type: 'danger', title:'getRSAChatingWithUser userKeys == null', errorMessage:"target user key is not found."});
                 }
                 else{
                     targetUserPublicKey = userKeys.publicKey;
@@ -626,7 +626,7 @@ getRSAChatingWithUser = function(req,res){
                                     }                                    
                                 }
                                 if(decrypted == 'error'){
-                                    messages[i].content = "Mesaj farklı birisi tarafından imzalanmış ve ya mesajın içeriği değiştirilmiş."
+                                    messages[i].content = "This Message is signed by someone else or this message has been modified."
                                 }
                                 else{
                                     // hash kontrol
@@ -642,7 +642,7 @@ getRSAChatingWithUser = function(req,res){
                                         messages[i].time = date.getDate() + ' ' + month + ' ' +date.getFullYear() + ' ' + hour + ':' + minute ;
                                     }
                                     else{
-                                        messages[i].content = "Mesaj farklı birisi tarafından imzalanmış ve ya mesajın içeriği değiştirilmiş."
+                                        messages[i].content = "This Message is signed by someone else or this message has been modified."
                                     }
                                 }
                             }
@@ -702,9 +702,7 @@ getSendImage = function(req,res){
                             newChat.save(function(err){
                                 if(err){
                                     res.render('error', { type: 'danger', title:'getAESChatingWithUser() newChat.save', errorMessage:err });
-                                }else{
-                                    console.log("chat oluşturuldu.");
-                                }                  
+                                }                
                             });
                         }
                     });
@@ -712,7 +710,7 @@ getSendImage = function(req,res){
                 }
             }
             else{
-                res.render('register', { status: 'statusAlert', type: 'warning', message:'Yeterince user kayıtlı değil' });
+                res.render('register', { status: 'statusAlert', type: 'warning', message:'Not enough users are registered.' });
             }
         });
 
@@ -757,7 +755,7 @@ getSendImage = function(req,res){
 postIndex = function(req,res){    
     if(req.body.processType == 'encryption'){
         if(req.body.test_plain_text == '' || req.body.test_key == ''){
-            res.render('index',{status: 'statusAlert', type: 'warning', message:'Plain Text ve Key alanlarını doldurunuz.' });
+            res.render('index',{status: 'statusAlert', type: 'warning', message:'Fill in the plaintext and key.' });
         }
         else{
             const plainText = req.body.test_plain_text;
@@ -768,7 +766,7 @@ postIndex = function(req,res){
     }
     else if(req.body.processType == 'decryption'){
         if(req.body.test_cipher_text == '' || req.body.test_key == ''){
-            res.render('index',{status: 'statusAlert', type: 'warning', message:'Cipher Text ve Key alanlarını doldurunuz.' });
+            res.render('index',{status: 'statusAlert', type: 'warning', message:'Fill in the ciphertext and key.' });
         }
         else{
             const cipherText = req.body.test_cipher_text;
@@ -783,7 +781,7 @@ postLogin = function (req,res) {
     const userPromise = User.findOne({ username: req.body.username }).exec();
     userPromise.then(function (user) {
         if(user === null){
-            res.render('login', { status: 'statusAlert', type: 'warning', message:'Böyle bir kullanıcı yok.' });
+            res.render('login', { status: 'statusAlert', type: 'warning', message:'There is no such user.' });
         }
         else{                
             if(CryptoJS.SHA256(req.body.password).toString(CryptoJS.enc.Hex) == user.password) {                    
@@ -791,7 +789,7 @@ postLogin = function (req,res) {
                 res.redirect('/');
             }
             else {
-                res.render('login', { status: 'statusAlert', type: 'warning', message:'Parola yanlış.' });
+                res.render('login', { status: 'statusAlert', type: 'warning', message:'Password is incorrect.' });
             }
         }
     });    
@@ -802,7 +800,7 @@ postRegister = function(req,res){
     userPromise.then(function (user) {
         if(user === null){
             if(req.body.username == '' || req.body.password == ''){
-                res.render('register', { status: 'statusAlert', type: 'warning', message:'Boş alan bırakmayın.' });
+                res.render('register', { status: 'statusAlert', type: 'warning', message:'All inputs must be filled.' });
             }
             else{
                 const hashedPassword = CryptoJS.SHA256(req.body.password);
@@ -838,7 +836,7 @@ postRegister = function(req,res){
             }
         }
         else{                
-            res.render('register', { status: 'statusAlert', type: 'danger', message:'Bu kullanıcı adı kullanılıyor.' });
+            res.render('register', { status: 'statusAlert', type: 'danger', message:'This username is already used.' });
         }
     });    
 }
@@ -858,7 +856,7 @@ postAESChating = function(req,res){
     const focusChatPromise = AESChat.findOne({idString : keyString}).exec();
     focusChatPromise.then(function (focusChat) {
         if(focusChat == null){                    
-            res.render('error', { type: 'danger', title:'postAESChating focusChat == null ', errorMessage:"Focus chat bulunamadı." });
+            res.render('error', { type: 'danger', title:'postAESChating focusChat == null ', errorMessage:"Focus chat is not found." });
         }
         else{
             const message = req.body.message_text;
@@ -894,7 +892,7 @@ postSendSpam = function(req,res){
     const focusChatPromise = AESChat.findOne({idString : keyString}).exec();
     focusChatPromise.then(function (chat) {
         if(chat == null){                    
-            res.render('error', { type: 'danger', title:'postSendSpam() chat==null', errorMessage:"focus chat bulunamadı." });
+            res.render('error', { type: 'danger', title:'postSendSpam() chat==null', errorMessage:"focus chat is not found." });
         }
         else{
             const message = req.body.message_text;
@@ -934,7 +932,7 @@ postRSAChating = function(req,res){
     const focusChatPromise = RSAChat.findOne({idString : keyString}).exec();
     focusChatPromise.then(function (focusChat) {
         if(focusChat == null){                    
-            res.render('error', { type: 'danger', title:'postRSAChating focusChat == null ', errorMessage:"Focus chat bulunamadı." });
+            res.render('error', { type: 'danger', title:'postRSAChating focusChat == null ', errorMessage:"Focus chat is not found." });
         }
         else{
             const message = req.body.message_text;
@@ -945,7 +943,7 @@ postRSAChating = function(req,res){
                 const sessionPEMStringPromise = RSAKey.findOne({userId: user._id}).exec();
                 sessionPEMStringPromise.then(function (userKeys) {
                     if(userKeys == null){
-                        res.render('error', { type: 'danger', title:'postRSAChating userKeys == null', errorMessage:"Session user key bulunamadi."});
+                        res.render('error', { type: 'danger', title:'postRSAChating userKeys == null', errorMessage:"Session user key is not found."});
                     }
                     else{
                         sessionPrivateKey = userKeys.privateKey;                        
@@ -1000,21 +998,21 @@ postSendImage = function(req,res){
             else{
                 keyString = targetUsername + sessionUsername;
             }
-            console.log('keyString : ' +keyString);
+
             const focusChatPromise = AESChat.findOne({idString : keyString}).exec();
             focusChatPromise.then(function (chat) {
                 if(chat == null){                    
-                    res.render('error', { type: 'danger', title:'postSendImage() chat==null', errorMessage:"chat bulunamadı." });
+                    res.render('error', { type: 'danger', title:'postSendImage() chat==null', errorMessage:"chat is not found." });
                 }
                 else{
-                    // arayüzden alınan fotoğraf /publi/img/postimages/ altına kaydediliyor.
+                    // arayüzden alınan fotoğraf /public/img/postimages/ altına kaydediliyor.
                     let image = req.files.image;
                     image.name = `${dbImages.length}.png`;
                     const url = path.resolve(__dirname,'../../public/img/postimages', image.name);
                     image.mv(url);
 
                     // 0,1,2, diye gidecek ayarda isimlendirme yapılıyor.
-                    const pngUrl = path.resolve(__dirname,'../../public/img/postimages', `${dbImages.length}.png`); 
+                    // const pngUrl = path.resolve(__dirname,'../../public/img/postimages', `${dbImages.length}.png`); 
                     // watermak için özellikler ayarlanıyor.
                     const watermarkOptions = {
                         'text' : req.session.user,
@@ -1022,7 +1020,7 @@ postSendImage = function(req,res){
                         'scale' : '50%'
                     };     
                     // watermark ekleniyor.           
-                    watermark.addWatermark(pngUrl, watermarkOptions, function(err){
+                    watermark.addWatermark(url, watermarkOptions, function(err){
                         if(err){
                             return console.log(err);
                         }
