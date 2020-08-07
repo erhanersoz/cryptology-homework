@@ -998,21 +998,21 @@ postSendImage = function(req,res){
             else{
                 keyString = targetUsername + sessionUsername;
             }
-            console.log('keyString : ' +keyString);
+
             const focusChatPromise = AESChat.findOne({idString : keyString}).exec();
             focusChatPromise.then(function (chat) {
                 if(chat == null){                    
                     res.render('error', { type: 'danger', title:'postSendImage() chat==null', errorMessage:"chat is not found." });
                 }
                 else{
-                    // arayüzden alınan fotoğraf /publi/img/postimages/ altına kaydediliyor.
+                    // arayüzden alınan fotoğraf /public/img/postimages/ altına kaydediliyor.
                     let image = req.files.image;
                     image.name = `${dbImages.length}.png`;
                     const url = path.resolve(__dirname,'../../public/img/postimages', image.name);
                     image.mv(url);
 
                     // 0,1,2, diye gidecek ayarda isimlendirme yapılıyor.
-                    const pngUrl = path.resolve(__dirname,'../../public/img/postimages', `${dbImages.length}.png`); 
+                    // const pngUrl = path.resolve(__dirname,'../../public/img/postimages', `${dbImages.length}.png`); 
                     // watermak için özellikler ayarlanıyor.
                     const watermarkOptions = {
                         'text' : req.session.user,
@@ -1020,7 +1020,7 @@ postSendImage = function(req,res){
                         'scale' : '50%'
                     };     
                     // watermark ekleniyor.           
-                    watermark.addWatermark(pngUrl, watermarkOptions, function(err){
+                    watermark.addWatermark(url, watermarkOptions, function(err){
                         if(err){
                             return console.log(err);
                         }
